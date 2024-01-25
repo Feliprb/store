@@ -1,0 +1,248 @@
+<p>product-create works!</p>
+<!-- <div class="col-md-4">
+    <div class="card">
+      <div class="card-body p-4">
+
+        <!-- Form 
+        <form #productForm="ngForm" (ngSubmit)="addProduct(productForm)">
+          <!--  Id autor
+          <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="productService.selectedProduct._id">
+
+          <div class="form-group">
+            <div class="input-field col-s12">
+              <label>Sku :</label>
+              <input type="text" name="sku"  #name="ngModel" [(ngModel)]="productService.selectedProduct.sku"
+                placeholder="Ingrese el sku" class="form-control" required #nomValid="ngModel">
+                <mat-error *ngIf="nomValid.invalid ">Este campo es requerido</mat-error>
+
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Name :</label>
+            <input type="text" name="name" #name="ngModel"
+              [(ngModel)]="productService.selectedProduct.name" class="form-control" required  #feValid="ngModel" placeholder="Ingrese el nombre">
+              <mat-error *ngIf="feValid.invalid "> Este campo es requerido</mat-error>
+          </div>
+          
+          <div class="form-group">
+            <label>Descripcion :</label>
+            <input type="text" name="description" #name="ngModel" [(ngModel)]="productService.selectedProduct.description"
+              placeholder="Ingrese la descripción" class="form-control" required #naValid="ngModel">
+              <mat-error *ngIf="naValid.invalid ">Este campo es requerido</mat-error>
+          </div>
+
+          <div class="form-group">
+            <label>Precio :</label>
+            <input type="number" name="price" #name="ngModel" [(ngModel)]="productService.selectedProduct.price"
+              placeholder="Ingrese " class="form-control" required #naValid="ngModel">
+              <mat-error *ngIf="naValid.invalid ">Este campo es requerido</mat-error>
+          </div>
+
+          <div class="form-group">
+            <label>Imagen :</label>
+            <input type="text" name="image" #name="ngModel" [(ngModel)]="productService.selectedProduct.image"
+              placeholder="Ingrese la descripción" class="form-control" required #naValid="ngModel">
+              <mat-error *ngIf="naValid.invalid ">Este campo es requerido</mat-error>
+          </div>
+
+          <div class="form-group">
+            <label>Expiración :</label>
+            <input type="text" name="expiration" #name="ngModel" [(ngModel)]="productService.selectedProduct.expiration"
+              placeholder="Ingrese la Expiración" class="form-control" required #naValid="ngModel">
+              <mat-error *ngIf="naValid.invalid ">Este campo es requerido</mat-error>
+          </div>
+
+          <div class="form-group">
+            <label>Cantidad :</label>
+            <input type="text" name="quantity" #name="ngModel" [(ngModel)]="productService.selectedProduct.quantity"
+              placeholder="Ingrese la cantidad" class="form-control" required #naValid="ngModel">
+              <mat-error *ngIf="naValid.invalid ">Este campo es requerido</mat-error>
+          </div>
+
+          <div class="form-group">
+            <label>Categoria :</label>
+            <input type="text" name="category" #name="ngModel" [(ngModel)]="productService.selectedProduct.category"
+              placeholder="Ingrese la categoria" class="form-control" required #naValid="ngModel">
+              <mat-error *ngIf="naValid.invalid ">Este campo es requerido</mat-error>
+          </div>
+
+          <div class="form-group">
+            <label>Estado :</label>
+            <input type="text" name="status" #name="ngModel" [(ngModel)]="productService.selectedProduct.status"
+              placeholder="Ingrese el estado" class="form-control" required #naValid="ngModel">
+              <mat-error *ngIf="naValid.invalid ">Este campo es requerido</mat-error>
+          </div>
+          <button class="btn btn-primary mr-2" (click)="resetForm(productForm)">Limpiar</button>
+          <button class="btn btn-secondary" [disabled]="!productForm.valid">Guardar</button>
+          
+        </form>
+      </div>
+    </div>
+  </div> -->
+
+
+
+
+
+<div class="card">
+  <div class="card-header text-primary">
+    <h1 class="m-0 float-left">Productos</h1>
+  </div>
+  <div class="card-body">
+
+
+
+    <div>
+      <h3>Elija una imagen</h3>
+      <input (change)="captureFile($event)" type="file">
+    </div>
+      <!-- <div class="preview-img" *ngIf="preview">
+      <button class="clear-image" type="button" (click)="clearImage()">Clear</button> -->
+      <!-- <img width="50px" [src]="preview" alt=""> -->
+    <!-- </div> -->
+
+    <div class="p-1">
+      <small>Se aceptan archivos imágenes de tipo .png</small>
+    </div>
+    <div class="wrapper-button">
+      <button type="button" [disabled]="loading || !preview" (click)="uploadFile()">
+        {{(loading) ? 'cargando... ' : 'subir archivo'}} </button>
+      <!-- loading para evitar que el cliente envie multiples peticiones -->
+      <button *ngIf="preview" class="clear-image" type="button" (click)="clearImage()">Clear</button>
+
+    </div>
+    <!-- preview -->
+    <div *ngIf="preview">
+      <!-- aparecera solo si existe preview  -->
+      <img width="50px" [src]="preview" alt="">
+    </div>
+
+    <br><br><br><br><br>
+
+
+
+
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="off">
+
+      <div class="row">
+        <div class="col-lg-12">
+          <label for="sku" class="form-label">Sku</label>
+          <input type="text" class="form-control" id="sku" formControlName="sku">
+          <div *ngIf="isFieldInvalid('sku')" class="error-input">
+            <div *ngIf="form.get('sku')?.errors?.['required']">Campo requerido</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-12">
+          <label for="name" class="form-label">Nombre</label>
+          <input type="text" class="form-control" id="name" formControlName="name">
+          <div *ngIf="isFieldInvalid('name')" class="error-input">
+            <div *ngIf="form.get('name')?.errors?.['required']">Campo requerido</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-12">
+          <label for="description" class="form-label">Descripcion</label>
+          <input type="text" class="form-control" id="description" formControlName="description" value="">
+          <div *ngIf="isFieldInvalid('description')" class="error-input">
+            <div *ngIf="form.get('description')?.errors?.['required']">Campo requerido</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-12">
+          <label for="price" class="form-label">Precio</label>
+          <input type="number" class="form-control" id="price" formControlName="price">
+          <div *ngIf="isFieldInvalid('price')" class="error-input">
+            <div *ngIf="form.get('price')?.errors?.['required']">Campo requerido</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- <div class="row">
+        <div class="col-lg-12">
+          <label for="image" class="form-label">Imagen</label>
+          <input type="text" class="form-control" id="image" formControlName="image">
+          <div *ngIf="isFieldInvalid('image')" class="error-input">
+            <div *ngIf="form.get('image')?.errors?.['required']">Campo requerido</div>
+          </div>
+        </div>
+      </div> -->
+      <!-- <div class="row">
+        <div class="col-lg-12">
+          <label for="images" class="form-label">Imagen </label>
+          <input type="text" class="form-control" id="images" formControlName="images" >
+          <div *ngIf="isFieldInvalid('images')" class="error-input">
+            <div *ngIf="form.get('images')?.errors?.['required']">Campo requerido</div>
+          </div>
+        </div>
+      </div> -->
+
+      <div class="row">
+        <div class="col-lg-12">
+          <label for="expiration" class="form-label">Expiración</label>
+          <input type="text" class="form-control" id="expiration" formControlName="expiration">
+          <div *ngIf="isFieldInvalid('expiration')" class="error-input">
+            <div *ngIf="form.get('expiration')?.errors?.['required']">Campo requerido</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-12">
+          <label for="quantity" class="form-label">Cantidad</label>
+          <input type="text" class="form-control" id="quantity" formControlName="quantity">
+          <div *ngIf="isFieldInvalid('quantity')" class="error-input">
+            <div *ngIf="form.get('quantity')?.errors?.['required']">Campo requerido</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-12">
+          <label for="category" class="form-label">Categoria</label>
+          <input type="text" class="form-control" id="category" formControlName="category">
+          <div *ngIf="isFieldInvalid('category')" class="error-input">
+            <div *ngIf="form.get('category')?.errors?.['required']">Campo requerido</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-12">
+          <label for="status" class="form-label">Estdo</label>
+          <input type="text" class="form-control" id="status" formControlName="status">
+          <div *ngIf="isFieldInvalid('status')" class="error-input">
+            <div *ngIf="form.get('status')?.errors?.['required']">Campo requerido</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- <div class="row">
+        <div class="col-lg-12">
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="status" formControlName="status">
+            <label for="status" class="form-label">Estado</label>
+          </div>
+        </div>
+      </div> -->
+
+      <div class="row my-3">
+        <div class="col-lg-12">
+          <button [disabled]="form.invalid" class="btn btn-primary btn-sm m-1" type="submit">{{ (id) ? 'Actualizar' :
+            'Guardar' }}</button>
+          <button class="btn btn-info btn-sm m-1" type="button" routerLink="/admin/products">Cancelar</button>
+        </div>
+      </div>
+
+    </form>
+
+  </div>
+</div>

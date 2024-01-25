@@ -1,0 +1,50 @@
+<p>product-list works!</p>
+
+<button routerLink="/admin/product/add" mat-raised-button color="primary">Nuevo</button>
+<!-- TABLE -->
+<div class="col-md-7">
+    <table class="table table-striped">
+      <thead>
+        <th>ID</th>
+        <th>Sku </th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Price</th>
+        <th>Image</th>
+        <th>Expiration</th>
+        <th>Quantity</th>
+        <th>Category</th>
+        <th>Status</th>
+
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of productService.productos">
+          <td>{{ product._id }}</td>
+          <td>{{ product.sku }}</td>
+          <td>{{ product.name }}</td>
+          <td>{{ product.description }}</td>
+          <td>{{ product.price }}</td>
+          <td>
+            <img  class="imgProd" src="{{api}}{{product.image}}  " alt="img">
+          </td>
+          <td>{{ product.expiration }}</td>
+          <td>{{ product.quantity }}</td>
+          <td>{{ product.category }}</td>
+          <td>{{ product.status }}</td>
+          <!-- <td>{{ product.unit }}</td>
+          <td>{{ product.model }}</td>
+          <td>{{ product.maker }}</td> -->
+
+
+          <td>
+            <a routerLink="/admin/product/edit/{{product._id}}" class="btn btn-secondary btn-sm">
+              <i class="material-icons">edit</i>
+            </a> 
+             <a (click)="deleteProduct(product._id)" class="btn btn-danger btn-sm">
+              <i class="material-icons">delete</i>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>

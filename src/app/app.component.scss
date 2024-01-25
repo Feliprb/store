@@ -1,0 +1,6 @@
+:host{
+    display: block;
+    .content{
+       min-height: calc(110vh - 60px - 38px);
+    }
+}

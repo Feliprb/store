@@ -1,0 +1,57 @@
+<p>cart works!</p>
+<h1>Carrito de compras</h1>
+<br>
+
+<div class="content" class="col-lg-8 col-md-8 ">
+  <div class="item" *ngFor="let item of cart">
+    <div class="item1">
+      <div >
+        {{item.image}} 
+        <img  class="imgProd" src="{{api}}{{item.image}}" alt="img">
+      </div>
+    </div>
+    <div class="item2">
+      <div>Nombre {{item.name}}</div>
+      <div>Precio {{item.price}}</div>
+      <div>Cantidad {{item.quantity}}</div>
+      <div>{{item.price * item.quantity}}</div>
+    </div>
+    <br><br><br><br><br>
+    <div class="divImgs"></div>
+  </div>
+</div>
+
+<div class="subTotal">
+  <p>Subtotal : <span>{{getSubTotal()}}</span></p>
+  <p>Total: <span>{{getTotal()}}</span></p>
+</div>
+
+
+<div class="subTotal">
+  <p>Descripcion : <span>{{getSubTotal()}}</span></p>
+  <p>Total: <span>{{getTotal()}}</span></p>
+  <p>Descripcion: <span>{{getDescripcion()}}</span></p>
+
+</div>
+
+
+
+<form method="post" action="https://sandbox.checkout.payulatam.com/ppp-web-gateway-payu/">
+  <input name="merchantId"      type="hidden"  value="{{merchantId}}"   >
+  <input name="accountId"       type="hidden"  value="512321" >
+
+  <input name="description"     type="hidden"  value="Test PAYU, productos que se agregaron {{getDescripcion()}}"  >
+  <input name="referenceCode"   type="hidden"  value="{{referenceCode}}" >
+  <input name="amount"          type="hidden"  value="{{total}}"   >
+  <input name="tax"             type="hidden"  value="3193"  >
+  <input name="taxReturnBase"   type="hidden"  value="16806" >
+  <input name="currency"        type="hidden"  value="{{currency}}" >
+  <input name="signature"       type="hidden"  value="{{signature}}"  >
+  <input name="test"            type="hidden"  value="0" >
+  <input name="buyerEmail"      type="hidden"  value="felirami176@gmail.com" >
+  <input name="responseUrl"     type="hidden"  value="https://www.youtube.com/" ><!-- Regreso a la tienda -->
+  <input name="confirmationUrl" type="hidden"  value="https://www.google.com/intl/es-419/gmail/about/" >
+  <input name="Submit"          type="submit"  value="Pay" >
+</form>
+
+

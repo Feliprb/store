@@ -1,0 +1,11 @@
+:host{
+    display: flex;
+    padding: 100px;
+
+    .detail-img{
+        width: 55%;
+    }
+    .detail-info{
+        width: 45%;
+    }
+}

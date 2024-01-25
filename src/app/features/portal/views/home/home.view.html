@@ -1,0 +1,7 @@
+<ng-container *ngFor="let item of products">
+    <!-- es el product model que se carga desde el home.ts -->
+    <div class="product">
+        <app-product [product]="item"></app-product>
+        <!-- product se carga desde product component.ts  pero es mismo model -->
+    </div>
+</ng-container>

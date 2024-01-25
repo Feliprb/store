@@ -1,0 +1,15 @@
+<div class="content">
+    <div class="slider-wrapper">
+        <img src="assets/icons/up-arrow-svgrepo-com.svg" alt="" class="up" (click)="up()">
+        <div class="slider" #slider>
+            <ng-container *ngFor="let item of images">
+                <img [src]="getImages(item)" alt="" (click)="toogleImg(item)"><!-- en el src -item le estoy pasando la url del .ts y el click le digo que setee la variable o url-->
+            </ng-container>
+        </div>
+        <img src="assets/icons/down-arrow-svgrepo-com.svg" alt="" class="down" (click)="down()">
+    </div>
+    <div class="main-img">
+        <img [src]="srcMain" alt=""> 
+    </div>
+</div>
+
